@@ -37,7 +37,7 @@ for (i, m) in zip(range(mapaCells.shape[0]), range(0 , mapaBinario.shape[0] +1, 
         mapaCells[i, j] = mapaBinario[m, n]
 
         #cria a dilatação das bordas, no caso engorda
-kernel = np.ones((5,5), np.uint8)
+kernel = np.ones((2,2), np.uint8)
 img_dilation = cv2.dilate(mapaCells, kernel, iterations=1) 
 
 
