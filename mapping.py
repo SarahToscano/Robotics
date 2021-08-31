@@ -14,11 +14,10 @@ mapa_aux = cv.imread("map.bmp", 0) # Imagem em escala de cinza
 ret, mapa_aux = cv.threshold(mapa_aux, 0, 255, cv.THRESH_BINARY_INV)
 mapaBinario = mapa_aux // 255 # Then we divine by 255, so we have 0s and 1s
 
-   
- #Used for proportion of AStar cells
+  
 ############################## Esse algoritmo faz o redimensionamento na escala mas o segundo achei que ficou melhor
 #algoritmo que diminui a resolução
-#scale_percent = 5 # percent of original size
+#scale_percent = 5 
 #width = int(mapaBinario.shape[1] / scale_percent )
 #height = int(mapaBinario.shape[0] / scale_percent)
 #dim = (width, height)
