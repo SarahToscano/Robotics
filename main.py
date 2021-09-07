@@ -14,7 +14,7 @@ def main(args):
 
     numSamples = args.numSamples
 
-    env = open("environment.txt", "r")
+    env = open("environment2.txt", "r")
     l1 = env.readline().split(";")
 
     current = list(map(int, l1[0].split(",")))

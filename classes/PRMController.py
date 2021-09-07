@@ -55,8 +55,8 @@ class PRMController:
         plt.show()
 
     def genCoords(self, maxSizeOfMap=100):
-        xs = np.random.randint(130, size=(self.numOfCoords, 1))
-        ys = np.random.randint(100, size=(self.numOfCoords, 1))
+        xs = np.random.randint(self.large, size=(self.numOfCoords, 1))
+        ys = np.random.randint(self.high, size=(self.numOfCoords, 1))
 
         self.coordsList = np.hstack((xs, ys))
 
