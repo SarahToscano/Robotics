@@ -23,8 +23,8 @@ class Utils:
                 plt.plot(x, y)
             else:
                 currentAxis.add_patch(Rectangle(
-                    (ob.bottomLeft[0], ob.bottomLeft[1]), ob.width, ob.height, alpha=0.4))
+                    (ob.bottomLeft[0], ob.bottomLeft[1]), ob.width, ob.height, color='black',alpha=1))
 
         plt.scatter(curr[0], curr[1], s=200, c='green')
-        plt.scatter(dest[0], dest[1], s=200, c='green')
+        plt.scatter(dest[0], dest[1], s=200, c='red')
         fig.canvas.draw()
