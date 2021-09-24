@@ -131,6 +131,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/cloud/ROS/Robotics/build/gtest/cmake_install.cmake")
+  include("/home/cloud/ROS/Robotics/build/simu/cmake_install.cmake")
 
 endif()
 

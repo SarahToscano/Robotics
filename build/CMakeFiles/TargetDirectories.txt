@@ -35,3 +35,11 @@
 /home/cloud/ROS/Robotics/build/gtest/googletest/CMakeFiles/test.dir
 /home/cloud/ROS/Robotics/build/gtest/googletest/CMakeFiles/gtest_main.dir
 /home/cloud/ROS/Robotics/build/gtest/googletest/CMakeFiles/gtest.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/install/strip.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/install/local.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/install.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/list_install_components.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/rebuild_cache.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/edit_cache.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/test.dir
+/home/cloud/ROS/Robotics/build/simu/CMakeFiles/_catkin_empty_exported_target.dir
