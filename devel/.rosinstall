@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/cloud/ROS/Robotics/devel/setup.sh

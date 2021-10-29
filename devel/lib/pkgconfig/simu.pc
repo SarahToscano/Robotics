@@ -1,0 +1,8 @@
+prefix=/home/cloud/ROS/Robotics/devel
+
+Name: simu
+Description: Description of simu
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
