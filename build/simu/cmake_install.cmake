@@ -52,3 +52,31 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/simu" TYPE FILE FILES "/home/cloud/ROS/Robotics/src/simu/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/control.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/nmpc.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/calcRefTraj.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/calcUsteps.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/costFunction.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/diffAngle.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/simu" TYPE PROGRAM FILES "/home/cloud/ROS/Robotics/build/simu/catkin_generated/installspace/scaleForSaturation.py")
+endif()
+

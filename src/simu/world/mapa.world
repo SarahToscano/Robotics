@@ -59,12 +59,12 @@
                         <uri>model://ground_plane</uri>
                 </include>
 
-                <model name="mapa">
+                <!-- <model name="mapa">
                         <include>
                                 <uri>model://mapa</uri>
                                 <pose>4.3 3.4 0</pose>
                         </include>
-                </model>
+                </model> -->
 
                 
 
