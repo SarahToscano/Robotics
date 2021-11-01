@@ -137,6 +137,15 @@ class PRMController:
 
         x = [int(item[0]) for item in pointsToDisplay]
         y = [int(item[1]) for item in pointsToDisplay]
+        
+        print("DADOS DA ROTA: \n\n", x, y)
+
+        with open('route.txt', 'w') as route:
+            for i in range (0, len(x)):
+                if(i==0):
+                   route.write(str(len(x)) + "\n") 
+                route.write(str(x[i]) +' ' + str(y[i]) + "\n")
+        
         plt.plot(x, y, c="blue", linewidth=3.5)
 
         pointsToEnd = [str(self.findPointsFromNode(path))
