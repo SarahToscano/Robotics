@@ -16,7 +16,7 @@ def mysign(x):
 def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, Wref,VXrefp, VYrefp, L1, L2, L3):
     # Inicializando parâmetros do controlador
     Vmax = 0.4
-    d_Rob = 0.2236
+    d_Rob = 0.2236 #0.354
     N1 = 1
     Np = 10  # Horizonte de predição
     Nu = 2  # Horizonte de controle
@@ -27,7 +27,7 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
     # L3 = 0.1
 
     #RPROP
-    JStop = 0.05
+    JStop = 0.05 #0.1
     Imax = 15
     delta = 0.1
     eta_M = 0.5
@@ -35,6 +35,8 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
     step_Max = 0.1
     step_Min = 0.000001
     curr_Step = 0.1
+
+    alpha = 0.015
 
     # Inicializando vetores do otimizador
     Jsteps = np.zeros((8, 1))

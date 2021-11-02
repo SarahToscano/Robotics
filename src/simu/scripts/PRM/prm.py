@@ -11,7 +11,7 @@ def main(args):
 
     parser = argparse.ArgumentParser(description='PRM Path Planning Algorithm')
     #definindo numero de pontos
-    parser.add_argument('--numSamples', type=int, default=500, metavar='N',
+    parser.add_argument('--numSamples', type=int, default=120, metavar='N',
                         help='Number of sampled points')
     args = parser.parse_args()
 
@@ -23,9 +23,9 @@ def main(args):
     current = list(map(int, l1[0].split(",")))
     destination = list(map(int, l1[1].split(",")))
 
-    print("Current: {} Destination: {}".format(current, destination))
+    #print("Current: {} Destination: {}".format(current, destination))
 
-    print("****Obstacles****")
+    # print("****Obstacles****")
     allObs = []
     for l in env:
         if(";" in l):
@@ -33,7 +33,7 @@ def main(args):
             topLeft = list(map(int, line[0].split(",")))
             bottomRight = list(map(int, line[1].split(",")))
             obs = Obstacle(topLeft, bottomRight)
-            obs.printFullCords()
+            #obs.printFullCords()
             allObs.append(obs)
 
     utils = Utils()

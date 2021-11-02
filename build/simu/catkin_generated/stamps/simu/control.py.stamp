@@ -32,9 +32,9 @@ TRsy = 0
 
 # L1, L2 e L3 sao os pesos para cada componente da funcao de custo
 # Pesos em linha reta
-L1 = 800
-L2 = 500
-L3 = 0.05
+L1 = 800 #10
+L2 = 500 #2000
+L3 = 0.05 
 
 # Pesos na rotacao
 L1_rot = 800
@@ -87,9 +87,8 @@ def lerArquivo():
             num = int(line)
         else:
             xy = line.split()
-            x.append(9*float(xy[0])/MAP_X)
-            y.append(7.2*(float(xy[1]))/MAP_Y)
-            print(x[i-1], y[i-1])
+            x.append(8.646010*float(xy[0])/MAP_X)
+            y.append(6.78863*(float(xy[1]))/MAP_Y)
 
         i = i + 1
     return (num, x, y)
@@ -100,15 +99,16 @@ velPub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 rospy.Subscriber('/odom', Odometry, OdometryValues, queue_size=1)
 velMsg = Twist()
 # rate = rospy.Rate(0.8)
-rate = rospy.Rate(1.2)
+rate = rospy.Rate(1.4)
 
-mapx = 9
-mapy = 7.2
+mapx = 8.646010
+mapy = 6.78863
 
 xref = []
 yref = [] 
 num, x, y = lerArquivo()
 
+# print(y)
 
 for i in range(len(x) - 1):
     inter = np.linspace(x[i], x[i+1], INTERVALOS)
@@ -117,6 +117,8 @@ for i in range(len(x) - 1):
     inter = np.linspace(y[i], y[i+1], INTERVALOS)
     for j in range(1, len(inter)):
         yref.append(inter[j])
+
+# print(yref)
 
 Vx = np.diff(xref)
 Vx = np.insert(Vx, 0, 0.0, axis=0)

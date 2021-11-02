@@ -32,7 +32,7 @@ class PRMController:
         while(not self.solutionFound):
 
             seed = np.random.randint(1, 100000)
-            print("Trying with random seed {}".format(seed)) #escolhe uma seed aleatoria 
+            # print("Trying with random seed {}".format(seed)) #escolhe uma seed aleatoria 
             np.random.seed(seed)
 
             # Gera os n pontos no mapa
@@ -49,8 +49,8 @@ class PRMController:
             self.shortestPath()
 
             
-            self.coordsList = np.array([])
-            self.graph = Graph()
+        self.coordsList = np.array([])
+        self.graph = Graph()
 
         if(saveImage):
             plt.savefig("../../mapa/{}_samples.png".format(self.numOfCoords))
@@ -66,7 +66,7 @@ class PRMController:
 
         plt.xlim(0, self.large)
         plt.ylim(0, self.high)
-        #plt.show()
+        plt.show()
 
     def genCoords(self, maxSizeOfMap=100):
         xs = np.random.randint(self.large, size=(self.numOfCoords, 1))
@@ -138,7 +138,7 @@ class PRMController:
         x = [int(item[0]) for item in pointsToDisplay]
         y = [int(item[1]) for item in pointsToDisplay]
 
-        print("DADOS DA ROTA: \n\n", x, y)
+        # print("DADOS DA ROTA: \n\n", x, y)
 
         with open('../../mapa/route.txt', 'w') as route:
             for i in range (0, len(x)):
@@ -150,15 +150,15 @@ class PRMController:
 
         pointsToEnd = [str(self.findPointsFromNode(path))
                        for path in pathToEnd]
-        print("****Output****")
+        # print("****Output****")
 
-        print("The quickest path from {} to {} is: \n {} \n with a distance of {}".format(
-            self.collisionFreePoints[int(self.startNode)],
-            self.collisionFreePoints[int(self.endNode)],
-            " \n ".join(pointsToEnd),
-            str(dist[self.endNode])
-        )
-        )
+        # print("The quickest path from {} to {} is: \n {} \n with a distance of {}".format(
+        #     self.collisionFreePoints[int(self.startNode)],
+        #     self.collisionFreePoints[int(self.endNode)],
+        #     " \n ".join(pointsToEnd),
+        #     str(dist[self.endNode])
+        # )
+        # )
 
     def checkLineCollision(self, start_line, end_line):
         collision = False
