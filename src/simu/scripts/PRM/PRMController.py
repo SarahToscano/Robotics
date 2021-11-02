@@ -93,7 +93,7 @@ class PRMController:
                         [self.collisionFreePoints, point])
         self.plotPoints(self.collisionFreePoints)
 
-    def findNearestNeighbour(self, k=10):
+    def findNearestNeighbour(self, k=11):
         X = self.collisionFreePoints
         knn = NearestNeighbors(n_neighbors=k)
         knn.fit(X)

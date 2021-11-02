@@ -15,7 +15,7 @@ sys.path.insert(0, 'src/simu/scripts/nmpc')
 from nmpc import Nmpc
 #from nmpc.calcUsteps import calcUsteps
 
-INTERVALOS = 10
+INTERVALOS = 5
 pi = math.pi
 Xrefp = 0
 Yrefp = 0
@@ -36,14 +36,6 @@ L1 = 800 #10
 L2 = 500 #2000
 L3 = 0.05 
 
-# Pesos na rotacao
-L1_rot = 800
-L2_rot = 600
-L3_rot = 0.1
-
-# x e y pecorrido
-x_pecorrido = []
-y_pecorrido = []
 
 #imagem em pixel
 MAP_X = 450
@@ -59,8 +51,6 @@ def OdometryValues(msg):
     TRsv = msg.twist.twist.linear.x
     TRsw = msg.twist.twist.angular.z
 
-# def VelocityValues(msg):
-#     global 
     
 def CalcTetaVW(Vx, aX, Vy, aY):
     tetaRef_ = math.atan2(Vy, Vx)
@@ -99,16 +89,12 @@ velPub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 rospy.Subscriber('/odom', Odometry, OdometryValues, queue_size=1)
 velMsg = Twist()
 # rate = rospy.Rate(0.8)
-rate = rospy.Rate(1.25)
-
-mapx = 8.646010
-mapy = 6.78863
+rate = rospy.Rate(1.6)
 
 xref = []
 yref = [] 
 num, x, y = lerArquivo()
 
-# print(y)
 
 for i in range(len(x) - 1):
     inter = np.linspace(x[i], x[i+1], INTERVALOS)
@@ -117,8 +103,6 @@ for i in range(len(x) - 1):
     inter = np.linspace(y[i], y[i+1], INTERVALOS)
     for j in range(1, len(inter)):
         yref.append(inter[j])
-
-# print(yref)
 
 Vx = np.diff(xref)
 Vx = np.insert(Vx, 0, 0.0, axis=0)
@@ -163,3 +147,6 @@ for i in range(len(xref)):
     print("\n\n")
     
 
+velMsg.linear.x = 0
+velMsg.angular.z = 0
+velPub.publish(velMsg)

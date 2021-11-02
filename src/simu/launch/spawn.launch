@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="model" default="waffle" doc="model type [burger, waffle, waffle_pi]"/>
     <arg name="x" default="0.96066" />  <!-- 1-->
     <arg name="y" default="0.872823" />  <!-- 0.9-->
     <arg name="z" default="0.02" />

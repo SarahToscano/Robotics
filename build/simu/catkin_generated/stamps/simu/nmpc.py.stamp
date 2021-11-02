@@ -81,11 +81,9 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
     simTarget['y'] = Yrefp
     simTarget['vx'] = VXrefp
     simTarget['vy'] = VYrefp
-    # print("Parametros: simRobot = ", simRobot)
-    # print("\tsimTarget = ", simTarget)
+    
     
     Uref = scaleForSaturation(Uref, d_Rob, Nu, Vmax)
-    # print("Linhas 85, Uref = ", Uref)
 
     if(math.isnan(Wref)):
         Jcurrent = float("nan")
@@ -94,14 +92,12 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
                           simRobot['w'], Uref,simTarget['x'], simTarget['y'] ,simTarget['vx'], simTarget['vy'] , N1, Np, Nu, L1, L2, L3)
 
     Jbest = Jcurrent
-    # print("Linha 91, Jcurrent e Jbest = ", Jbest)
     #---------------------------------------------------
     #              Optimization loop
     #---------------------------------------------------
     while (iterationCount < Imax) and (Jcurrent > JStop) and not math.isnan(Jcurrent):
         #get Usteps matrix
         Usteps = calcUsteps(Uref, Nu, delta)
-        # print("Linha 98, Usteps = ", Usteps)
 
         #Calculate Jsteps vector (do one simulation for each input set)
         for k in range(0, Nu):
@@ -128,16 +124,13 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
 
                 #Limit wheel speed references in case of motor saturation (update references)
                 Uaux = scaleForSaturation(Uaux, d_Rob, Nu, Vmax)
-                # print("Linha 125, Uaux = ", Uaux)
                 
                 #Do simulation with current Uaux and add to Jsteps vector
                 #Switches between trajectory controller and formation controller
                 J = costFunction(simRobot['x'], simRobot['y'], simRobot['teta'], simRobot['v'],
                           simRobot['w'], Uaux,simTarget['x'], simTarget['y'] ,simTarget['vx'], simTarget['vy'] , N1, Np, Nu, L1, L2, L3)
-                # print("Linha 130, J = ", J)
                 #Add J to Jsteps
                 Jsteps[j + (4*k), 0] = J
-                # print("Linha 134, Jsteps = ", Jsteps)
         
         #Compute gradient of J from Jsteps
         for i in range(0, Nu):
@@ -146,8 +139,7 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
 
             Jgradient_prev[2*i+1,0] = Jgradient[2*i+1,0]
             Jgradient[2*i+1,0] = Jsteps[4*i+2,0] - Jsteps[4*i+3,0]
-        # print("Linha 142, Jgradient_prev = ", Jgradient_prev)
-        # print("Linha 143, Jgradient = ", Jgradient)
+        
 
         #Minimization algorithm
         for i in range(0, Nu):
@@ -169,13 +161,6 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
                         prevGrad = currGrad
                     
                     Jsteps_prev[2*i+j,0] = currStep
-
-        # print("Linha 151, currGrad = ", currGrad)
-        # print("Linha 159, currStep = ", currStep)
-        # print("Linha 163, Uref = ", Uref)
-        # print("Linha 164, prevGrad = ", prevGrad)
-        # print("Linha 166, Jstep_prev = ", Jsteps_prev)
-
         #Reset robot initial state for each simulation
         simRobot['x'] = TRsx
         simRobot['y'] = TRsy
@@ -189,18 +174,16 @@ def Nmpc(Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, W
         simTarget['vy'] = VYrefp
 
         Uref = scaleForSaturation(Uref, d_Rob, Nu, Vmax)
-        # print("Linha 186, Uref = ", Uref)
 
         #Calculate new current cost (do simulation)
         Jcurrent = costFunction(simRobot['x'], simRobot['y'], simRobot['teta'], simRobot['v'],
                           simRobot['w'], Uref,simTarget['x'], simTarget['y'] ,simTarget['vx'], simTarget['vy'] , N1, Np, Nu, L1, L2, L3)
-        # print("Linha 190, Jcurrent = ", Jcurrent)
         #Update JBest
         if Jcurrent < Jbest:
             Jbest = Jcurrent
             Ubest[0,0] = Uref[0,0]
             Ubest[1,0] = Uref[1,0]
-        # print("Linha 197, Ubest = ", Ubest)
+
         iterationCount = iterationCount+1
 
     # FIM DO WHILE

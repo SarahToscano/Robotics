@@ -1,2 +1,2 @@
-simu
+simu:turtlebot3_description
 -DCATKIN_DEVEL_PREFIX=/home/cloud/ROS/Robotics/devel -DCMAKE_INSTALL_PREFIX=/home/cloud/ROS/Robotics/install -G Unix Makefiles
