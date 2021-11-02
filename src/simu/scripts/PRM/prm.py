@@ -11,7 +11,7 @@ def main(args):
 
     parser = argparse.ArgumentParser(description='PRM Path Planning Algorithm')
     #definindo numero de pontos
-    parser.add_argument('--numSamples', type=int, default=60, metavar='N',
+    parser.add_argument('--numSamples', type=int, default=500, metavar='N',
                         help='Number of sampled points')
     args = parser.parse_args()
 

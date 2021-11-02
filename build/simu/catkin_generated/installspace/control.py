@@ -9,12 +9,13 @@ import math
 import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
+import pandas as pd
 #from nmpc.nmpc import *
 sys.path.insert(0, 'src/simu/scripts/nmpc')
 from nmpc import Nmpc
 #from nmpc.calcUsteps import calcUsteps
 
-INTERVALOS = 15
+INTERVALOS = 10
 pi = math.pi
 Xrefp = 0
 Yrefp = 0
@@ -32,8 +33,8 @@ TRsy = 0
 # L1, L2 e L3 sao os pesos para cada componente da funcao de custo
 # Pesos em linha reta
 L1 = 800
-L2 = 600
-L3 = 0.1
+L2 = 500
+L3 = 0.05
 
 # Pesos na rotacao
 L1_rot = 800
@@ -44,13 +45,17 @@ L3_rot = 0.1
 x_pecorrido = []
 y_pecorrido = []
 
+#imagem em pixel
+MAP_X = 450
+MAP_Y = 360
+
 def OdometryValues(msg):
     global TRsx, TRsy, TRst, TRsv, TRsw
     TRsx = msg.pose.pose.position.x
     TRsy = msg.pose.pose.position.y
-    TRst = msg.pose.pose.orientation.z
-    # TRst = 2 * math.atan2(msg.pose.pose.orientation.z,
-    #                       msg.pose.pose.orientation.w)
+    #TRst = msg.pose.pose.orientation.z
+    TRst = 2 * math.atan2(msg.pose.pose.orientation.z,
+                          msg.pose.pose.orientation.w)
     TRsv = msg.twist.twist.linear.x
     TRsw = msg.twist.twist.angular.z
 
@@ -69,28 +74,25 @@ def CalcTetaVW(Vx, aX, Vy, aY):
 
 
 def lerArquivo():
-    xref = []
-    yref = []
+    x = []
+    y = []
     lines = []
-    with open('src/simu/mapa/coords1.txt') as f:
+    with open('src/simu/mapa/route.txt') as f:
         lines = f.readlines()
 
     num = 0
     i = 0
     for line in lines:
         if (i == 0):
-            MAP_X = int(line)
-        elif (i == 1):
-            MAP_Y = int(line)
-        elif (i == 2):
             num = int(line)
-        elif(i <= num+2):
-            xref.append(10.645*float(line)/MAP_X)
         else:
-            yref.append(22.285*(MAP_Y - float(line))/MAP_Y)
+            xy = line.split()
+            x.append(9*float(xy[0])/MAP_X)
+            y.append(7.2*(float(xy[1]))/MAP_Y)
+            print(x[i-1], y[i-1])
 
         i = i + 1
-    return (MAP_X, MAP_Y, num, xref, yref)
+    return (num, x, y)
 
 
 rospy.init_node("control_teste")
@@ -98,12 +100,23 @@ velPub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 rospy.Subscriber('/odom', Odometry, OdometryValues, queue_size=1)
 velMsg = Twist()
 # rate = rospy.Rate(0.8)
-rate = rospy.Rate(0.8)
+rate = rospy.Rate(1.2)
 
-mapx = 10.645
-mapy = 22.285
+mapx = 9
+mapy = 7.2
 
-MAP_X, MAP_Y, num, xref, yref = lerArquivo() 
+xref = []
+yref = [] 
+num, x, y = lerArquivo()
+
+
+for i in range(len(x) - 1):
+    inter = np.linspace(x[i], x[i+1], INTERVALOS)
+    for j in range(1, len(inter)):
+        xref.append(inter[j])
+    inter = np.linspace(y[i], y[i+1], INTERVALOS)
+    for j in range(1, len(inter)):
+        yref.append(inter[j])
 
 Vx = np.diff(xref)
 Vx = np.insert(Vx, 0, 0.0, axis=0)
@@ -144,9 +157,7 @@ for i in range(len(xref)):
 
     rate.sleep()
     
-
     
-    
-    print("Chegou no ponto\n\n")
+    print("\n\n")
     
 

@@ -26,7 +26,7 @@ class PRMController:
         self.large = large
         self.high = high
 
-    def runPRM(self, saveImage=False):
+    def runPRM(self, saveImage=True):
 
         # Fica no looping ate achar uma solucao
         while(not self.solutionFound):
@@ -66,7 +66,7 @@ class PRMController:
 
         plt.xlim(0, self.large)
         plt.ylim(0, self.high)
-        plt.show()
+        #plt.show()
 
     def genCoords(self, maxSizeOfMap=100):
         xs = np.random.randint(self.large, size=(self.numOfCoords, 1))
@@ -137,15 +137,15 @@ class PRMController:
 
         x = [int(item[0]) for item in pointsToDisplay]
         y = [int(item[1]) for item in pointsToDisplay]
-        
+
         print("DADOS DA ROTA: \n\n", x, y)
 
-        with open('route.txt', 'w') as route:
+        with open('../../mapa/route.txt', 'w') as route:
             for i in range (0, len(x)):
                 if(i==0):
                    route.write(str(len(x)) + "\n") 
                 route.write(str(x[i]) +' ' + str(y[i]) + "\n")
-        
+
         plt.plot(x, y, c="blue", linewidth=3.5)
 
         pointsToEnd = [str(self.findPointsFromNode(path))
