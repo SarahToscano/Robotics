@@ -3,10 +3,6 @@
 
 O pacote turtlebot3_description serve apenas para ter o modelo do robô usado
 
-Para alterar o ponto de destino:
-
----mudar os valores da linha 51 do arquivo mapping.py, e executar o arquivo. Em seguida executar o prm.py para refazer a rota
-
 Para abrir o robô no mapa no gazebo:
 
 ---roslaunch simu spawn.launch
@@ -14,3 +10,10 @@ Para abrir o robô no mapa no gazebo:
 Executar o algoritmo NMPC:
 
 ---rosrun simu control.py
+
+
+
+
+Caso queira alterar o ponto de destino:
+
+---mudar os valores da linha 51 do arquivo mapping.py, e executar o arquivo. Em seguida executar o prm.py para refazer a rota
