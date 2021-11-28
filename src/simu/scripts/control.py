@@ -9,10 +9,19 @@ import math
 import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
+from sensor_msgs.msg import LaserScan
+
 import pandas as pd
-#from nmpc.nmpc import *
+
+#localizacao
+sys.path.insert(0, 'src/simu/scripts')
+from monte_carlo import robot, init, move
+from laser_values import laser
+
+#controle
 sys.path.insert(0, 'src/simu/scripts/nmpc')
 from nmpc import Nmpc
+from diffAngle import diffAngle
 #from nmpc.calcUsteps import calcUsteps
 
 INTERVALOS = 5
@@ -41,6 +50,9 @@ L3 = 0.05
 MAP_X = 450
 MAP_Y = 360
 
+#laser
+laser_read = []
+
 def OdometryValues(msg):
     global TRsx, TRsy, TRst, TRsv, TRsw
     TRsx = msg.pose.pose.position.x
@@ -51,15 +63,15 @@ def OdometryValues(msg):
     TRsv = msg.twist.twist.linear.x
     TRsw = msg.twist.twist.angular.z
 
+def laserValues(msg):
+    global laser_read
+    laser_read = msg.ranges
+
     
 def CalcTetaVW(Vx, aX, Vy, aY):
     tetaRef_ = math.atan2(Vy, Vx)
     Vref_ = math.sqrt(pow(Vx, 2)+pow(Vy, 2))
-    # if(Vx == 0.0 and Vy == 0.0):
-    #     Wref_ = 0
-    # else:
     Wref_ = ((Vx*aY)-(Vy*aX))/(pow(Vx, 2)+pow(Vy, 2))
-    # return tetaRef_, Vref_, Wref_
     return Vref_, Wref_
 
 
@@ -83,10 +95,14 @@ def lerArquivo():
         i = i + 1
     return (num, x, y)
 
+#localizacao
+myrobot = robot(1)
+init(myrobot)
 
 rospy.init_node("control_teste")
 velPub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
 rospy.Subscriber('/odom', Odometry, OdometryValues, queue_size=1)
+rospy.Subscriber('/scan', LaserScan, laserValues, queue_size=1)
 velMsg = Twist()
 # rate = rospy.Rate(0.8)
 rate = rospy.Rate(1.6)
@@ -131,21 +147,39 @@ for i in range(len(xref)):
 
     Vref, Wref = CalcTetaVW(Vx[i], acelX[i], Vy[i], acelY[i])
 
-    velMsg.linear.x, velMsg.angular.z = Nmpc(
-            Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, Wref, VXrefp, VYrefp, L1, L2, L3)
+    #AMCL
+    landmarks = laser(laser_read, TRst, TRsx, TRsy)
+    estimado, orientation=move(myrobot,1,TRst,TRsx,TRsy, landmarks)
+    print("estimado: ", estimado.x, " , ", estimado.y, ' , ', orientation)
+    print("real    : ", TRsx, ' , ', TRsy, ' , ', TRst, '\n')
+
+    # distpose = math.dist((estimado.x, estimado.y), (TRsx, TRsy))
+    # VB_x = (estimado.x - TRsx)/distpose
+    # VB_y = (estimado.y - TRsy)/distpose
+    # distangle = math.atan2(VB_y, VB_x)
+    # resang = diffAngle(distangle, TRst)
+    # if(distpose < 0.5) and (resang < 0.1):
+    #     TRsx = estimado.x
+    #     TRsy = estimado.y
+    #     TRst = orientation
+
+    # velMsg.linear.x, velMsg.angular.z = Nmpc(
+    #         Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, Wref, VXrefp, VYrefp, L1, L2, L3)
     
 
-    print("Querendo ir para X =" ,Xrefp ,", Y =" ,Yrefp)
-    print("iRobot.x =" ,TRsx ,", iRobot.y =" ,TRsy)
-    print("velo.linear.x =" ,velMsg.linear.x ,", velo.angular.z =" ,velMsg.angular.z)
+    # print("Querendo ir para X =" ,Xrefp ,", Y =" ,Yrefp)
+    # print("iRobot.x =" ,TRsx ,", iRobot.y =" ,TRsy)
+    # print("velo.linear.x =" ,velMsg.linear.x ,", velo.angular.z =" ,velMsg.angular.z)
     
-    velPub.publish(velMsg)
+    # velPub.publish(velMsg)
 
-    rate.sleep()
+    # rate.sleep()
     
+    # landmark = []
+    # print("\n\n")
     
-    print("\n\n")
-    
+print("done")
+plt.show()
 
 velMsg.linear.x = 0
 velMsg.angular.z = 0

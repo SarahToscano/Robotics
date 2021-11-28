@@ -52,13 +52,13 @@
     <collision name="rplidar_collision">
       <origin rpy="0 0 1.20" xyz="-0.03 0.02 -0.02" />
       <geometry>
-        <mesh filename="package://simu/models/laser_robot/meshes/rplidar.dae" scale="0.7 0.7 0.7" />
+        <mesh filename="package://robot_description/models/laser_robot/meshes/rplidar.dae" scale="0.7 0.7 0.7" />
       </geometry>
     </collision>
     <visual name="rplidar_visual">
       <origin rpy="0 0 1.20" xyz="-0.03 0.02 -0.02" />
       <geometry>
-        <mesh filename="package://simu/models/laser_robot/meshes/rplidar.dae" scale="0.7 0.7 0.7" />
+        <mesh filename="package://robot_description/models/laser_robot/meshes/rplidar.dae" scale="0.7 0.7 0.7" />
       </geometry>
     </visual>
   </link>

@@ -27,13 +27,13 @@
             <collision name="${prefix}_wheel_collision">
                 <origin rpy="0 0 0" xyz="0 0 0" />
                 <geometry>
-                    <mesh filename="package://simu/models/laser_robot/omni_wheel/meshes/roda_omni.obj" scale="1 1 1" />
+                    <mesh filename="package://robot_description/models/laser_robot/omni_wheel/meshes/roda_omni.obj" scale="1 1 1" />
                 </geometry>
             </collision>
             <visual name="${prefix}_wheel_visual">
                 <origin rpy="0 0 0" xyz="0 0 0" />
                 <geometry>
-                    <mesh filename="package://simu/models/laser_robot/omni_wheel/meshes/roda_omni.obj" scale="1 1 1" />
+                    <mesh filename="package://robot_description/models/laser_robot/omni_wheel/meshes/roda_omni.obj" scale="1 1 1" />
                 </geometry>
             </visual>
         </link>

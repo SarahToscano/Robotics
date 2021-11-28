@@ -21,6 +21,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/cloud/ROS/Robotics/src/simu/CMakeLists.txt"
   "/home/cloud/ROS/Robotics/src/simu/package.xml"
   "/home/cloud/ROS/Robotics/src/simu/scripts/control.py"
+  "/home/cloud/ROS/Robotics/src/simu/scripts/monte_carlo.py"
   "/home/cloud/ROS/Robotics/src/simu/scripts/nmpc/calcRefTraj.py"
   "/home/cloud/ROS/Robotics/src/simu/scripts/nmpc/calcUsteps.py"
   "/home/cloud/ROS/Robotics/src/simu/scripts/nmpc/costFunction.py"

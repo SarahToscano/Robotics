@@ -20,6 +20,7 @@ catkin_install_python(PROGRAMS scripts/control.py
   scripts/nmpc/costFunction.py 
   scripts/nmpc/diffAngle.py
   scripts/nmpc/scaleForSaturation.py
+  scripts/monte_carlo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

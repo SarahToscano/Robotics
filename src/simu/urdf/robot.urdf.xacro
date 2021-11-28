@@ -3,19 +3,19 @@
 
   <!--=========================== PLUGINS ===========================-->
 
-  <xacro:include filename="$(find simu)/urdf/robot.gazebo.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot.gazebo.xacro" />
 
   <!--=========================== ROBOT PARTS ===========================-->
 
-  <xacro:include filename="$(find simu)/urdf/robot_parts/carcaca.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot_parts/carcaca.xacro" />
 
-  <xacro:include filename="$(find simu)/urdf/robot_parts/traction_wheel.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot_parts/traction_wheel.xacro" />
 
-  <xacro:include filename="$(find simu)/urdf/robot_parts/tray.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot_parts/tray.xacro" />
 
-  <xacro:include filename="$(find simu)/urdf/robot_parts/piston.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot_parts/piston.xacro" />
 
-  <xacro:include filename="$(find simu)/urdf/robot_parts/omni_wheel.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/robot_parts/omni_wheel.xacro" />
 
   <!--=========================== SENSORS ===========================-->
 
@@ -28,19 +28,19 @@
   <xacro:arg name="sensor_camera" default="true" />
 
   <xacro:if value="$(arg sensor_imu)">
-    <xacro:include filename="$(find simu)/urdf/sensors/imu.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/sensors/imu.xacro" />
   </xacro:if>
 
   <xacro:if value="$(arg sensor_lidar)">
-    <xacro:include filename="$(find simu)/urdf/sensors/lidar.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/sensors/lidar.xacro" />
   </xacro:if>
 
   <xacro:if value="$(arg sensor_rplidar)">
-    <xacro:include filename="$(find simu)/urdf/sensors/rplidar.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/sensors/rplidar.xacro" />
   </xacro:if>
 
   <xacro:if value="$(arg sensor_camera)">
-    <xacro:include filename="$(find simu)/urdf/sensors/camera.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/sensors/camera.xacro" />
   </xacro:if>
 
 </robot>

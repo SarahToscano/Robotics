@@ -57,13 +57,13 @@
         <collision name="camera_1_collision">
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://simu/models/laser_robot/camera/meshes/camera.obj" scale="0.5 0.5 0.5" />
+                <mesh filename="package://robot_description/models/laser_robot/camera/meshes/camera.obj" scale="0.5 0.5 0.5" />
             </geometry>
         </collision>
         <visual name="camera_1_visual">
             <origin rpy="0 0 1.57" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://simu/models/laser_robot/camera/meshes/camera.obj" scale="0.5 0.5 0.5" />
+                <mesh filename="package://robot_description/models/laser_robot/camera/meshes/camera.obj" scale="0.5 0.5 0.5" />
             </geometry>
         </visual>
     </link>
