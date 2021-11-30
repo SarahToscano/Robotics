@@ -149,34 +149,34 @@ for i in range(len(xref)):
 
     #AMCL
     landmarks = laser(laser_read, TRst, TRsx, TRsy)
-    estimado, orientation=move(myrobot,1,TRst,TRsx,TRsy, landmarks)
+    estimado, orientation=move(myrobot,1,TRst,TRsx,TRsy, landmarks, i)
     print("estimado: ", estimado.x, " , ", estimado.y, ' , ', orientation)
     print("real    : ", TRsx, ' , ', TRsy, ' , ', TRst, '\n')
 
-    # distpose = math.dist((estimado.x, estimado.y), (TRsx, TRsy))
-    # VB_x = (estimado.x - TRsx)/distpose
-    # VB_y = (estimado.y - TRsy)/distpose
-    # distangle = math.atan2(VB_y, VB_x)
-    # resang = diffAngle(distangle, TRst)
-    # if(distpose < 0.5) and (resang < 0.1):
-    #     TRsx = estimado.x
-    #     TRsy = estimado.y
-    #     TRst = orientation
+    distpose = math.dist((estimado.x, estimado.y), (TRsx, TRsy))
+    VB_x = (estimado.x - TRsx)/distpose
+    VB_y = (estimado.y - TRsy)/distpose
+    distangle = math.atan2(VB_y, VB_x)
+    resang = diffAngle(distangle, TRst)
+    if(distpose < 0.5) and (resang < 0.1):
+        TRsx = estimado.x
+        TRsy = estimado.y
+        TRst = orientation
 
-    # velMsg.linear.x, velMsg.angular.z = Nmpc(
-    #         Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, Wref, VXrefp, VYrefp, L1, L2, L3)
+    velMsg.linear.x, velMsg.angular.z = Nmpc(
+            Xrefp, Yrefp, TRsx, TRsy, TRst, TRsv, TRsw, Xref, Yref, PHIref, Vref, Wref, VXrefp, VYrefp, L1, L2, L3)
     
 
-    # print("Querendo ir para X =" ,Xrefp ,", Y =" ,Yrefp)
-    # print("iRobot.x =" ,TRsx ,", iRobot.y =" ,TRsy)
-    # print("velo.linear.x =" ,velMsg.linear.x ,", velo.angular.z =" ,velMsg.angular.z)
+    print("Querendo ir para X =" ,Xrefp ,", Y =" ,Yrefp)
+    print("iRobot.x =" ,TRsx ,", iRobot.y =" ,TRsy)
+    print("velo.linear.x =" ,velMsg.linear.x ,", velo.angular.z =" ,velMsg.angular.z)
     
-    # velPub.publish(velMsg)
+    velPub.publish(velMsg)
 
-    # rate.sleep()
+    rate.sleep()
     
-    # landmark = []
-    # print("\n\n")
+    landmark = []
+    print("\n\n")
     
 print("done")
 plt.show()

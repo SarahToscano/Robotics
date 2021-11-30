@@ -14,7 +14,7 @@ landmarks = []
 world_x = 8.646010
 world_y = 6.78863
 p = []
-N = 1000
+N = 500
 
 x3 = []
 y3 = []
@@ -28,8 +28,8 @@ class robot:
             self.y = 0.872823
             self.orientation = 0.0
         else:
-            self.x = random.random() * world_x  # initialise with random
-            self.y = random.random() * world_y
+            self.x = 0.96066  # initialise with random
+            self.y = 0.872823
             self.orientation = random.random() * 2.0 * math.pi
        # draw_particles(self.x,self.y,self.orientation)
         self.forward_noise = 0.0
@@ -97,7 +97,7 @@ class robot:
         return prob
 
 
-def move(myrobot,step,turn,x,y, land):
+def move(myrobot,step,turn,x,y, land, ih):
     global p, landmarks
     landmarks = land
     for rd in range(step):
@@ -132,8 +132,12 @@ def move(myrobot,step,turn,x,y, land):
                 index = (index + 1) % N
             p3.append(p[index])
         p = p3
-        x4.append(p[w.index(min(w))].x)
-        y4.append(p[w.index(min(w))].y)
+        if(ih != 0):
+            x4.append(p[w.index(min(w))].x)
+            y4.append(p[w.index(min(w))].y)
+        else:
+            x4.append(myrobot.x)
+            y4.append(myrobot.y)
         draw_particles(p, myrobot,1,p[w.index(min(w))])
     return (p[w.index(min(w))], orient)
 
@@ -144,7 +148,7 @@ def draw_particles(particles,robotpose,drawp,particle_pose):
     #plt.scatter(particle_pose.x, particle_pose.y, s=100, color='blue')
     last_particle=particle_pose
         
-
+    
     plt.scatter(last_particle.x, last_particle.y, s=100, color='blue')
 
     plt.scatter(robotpose.x, robotpose.y, s=100,color='green')
@@ -153,9 +157,11 @@ def draw_particles(particles,robotpose,drawp,particle_pose):
     plt.plot(x4, y4, color='blue')
     # Draw the significant particles
     for i in landmarks:
-        plt.plot(i[0], i[1], marker = 'o', markersize = 2.5,markerfacecolor='black')
-    # for i in particles:
-    #     plt.plot(i.x, i.y, marker = 'o', markersize = 2.5, markerfacecolor='red', alpha=0.5)
+        plt.plot(i[0], i[1], marker = 'o', markersize = 2.5,markerfacecolor='black', markeredgecolor
+          ='black')
+    for i in range(0, len(particles), 1):
+        plt.plot(particles[i].x, particles[i].y, marker = 'o', markersize = 2.5, markerfacecolor='red',
+        markeredgecolor='red',alpha=0.6)
       
     plt.pause(0.000000000000000000000000000000000000001)
 
@@ -166,8 +172,10 @@ def draw_particles(particles,robotpose,drawp,particle_pose):
 # # Init actual location
 # myrobot = robot(1)
 def init(myrobot):
-    x3.append(myrobot.x)
-    y3.append(myrobot.y)
+    # x3.append(myrobot.x)
+    # y3.append(myrobot.y)
+    # x4.append(myrobot.x)
+    # y4.append(myrobot.y)
     # Set chart title.
     plt.title("Robot World ")
     # Set x, y label text.
@@ -184,13 +192,13 @@ def init(myrobot):
     # initialise randomly guessed particles
     for i in range(N):
         x = robot(0)
-        x.set_noise(0.05, 0.05, 0.7)    #0.05 0.05 0.25
+        x.set_noise(0.075, 0.075, 1.5)    #0.05 0.05 0.25
         p.append(x)
 
     wi=[]
     for i in range(N):
         wi.append(p[i].measurement_prob(Z))
-    draw_particles(p,myrobot,1,p[wi.index(min(wi))])
+    draw_particles(p,myrobot,1,myrobot)
 
 
 # myrobot=move(myrobot,1,0,3,2)
