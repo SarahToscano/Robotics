@@ -7,7 +7,7 @@ Para abrir o robô no mapa no gazebo:
 
 ---roslaunch simu spawn.launch
    
-Executar o algoritmo NMPC:
+Executar o algoritmo NMPC com localização por monte-carlo:
 
 ---rosrun simu control.py
 
