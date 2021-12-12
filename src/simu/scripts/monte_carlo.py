@@ -28,8 +28,8 @@ class robot:
             self.y = 0.872823
             self.orientation = 0.0
         else:
-            self.x = 0.96066  # initialise with random
-            self.y = 0.872823
+            self.x = random.random() + world_x # initialise with random
+            self.y = random.random() + world_y
             self.orientation = random.random() * 2.0 * math.pi
        # draw_particles(self.x,self.y,self.orientation)
         self.forward_noise = 0.0
@@ -159,7 +159,7 @@ def draw_particles(particles,robotpose,drawp,particle_pose):
     for i in landmarks:
         plt.plot(i[0], i[1], marker = 'o', markersize = 2.5,markerfacecolor='black', markeredgecolor
           ='black')
-    for i in range(0, len(particles), 1):
+    for i in range(0, len(particles), 30):
         plt.plot(particles[i].x, particles[i].y, marker = 'o', markersize = 2.5, markerfacecolor='red',
         markeredgecolor='red',alpha=0.6)
       
@@ -192,7 +192,7 @@ def init(myrobot):
     # initialise randomly guessed particles
     for i in range(N):
         x = robot(0)
-        x.set_noise(0.075, 0.075, 1.5)    #0.05 0.05 0.25
+        x.set_noise(0.075, 0.075, 1.5)    #0.05 0.05 0.25    
         p.append(x)
 
     wi=[]
