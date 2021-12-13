@@ -169,14 +169,9 @@ def draw_particles(particles,robotpose,drawp,particle_pose):
 
 
 
-# # Init actual location
-# myrobot = robot(1)
+
 def init(myrobot):
-    # x3.append(myrobot.x)
-    # y3.append(myrobot.y)
-    # x4.append(myrobot.x)
-    # y4.append(myrobot.y)
-    # Set chart title.
+  
     plt.title("Robot World ")
     # Set x, y label text.
     plt.xlim(0, world_x)
@@ -184,9 +179,7 @@ def init(myrobot):
     plt.xlabel("X")
     plt.ylabel("Y")
 
-    #draw_particles(p,myrobot,0,0)
-    #time.sleep(7)
- 
+
     Z = myrobot.sense()
 
     # initialise randomly guessed particles
@@ -200,16 +193,3 @@ def init(myrobot):
         wi.append(p[i].measurement_prob(Z))
     draw_particles(p,myrobot,1,myrobot)
 
-
-# myrobot=move(myrobot,1,0,3,2)
-# myrobot=move(myrobot,1,0,4,2)
-# myrobot=move(myrobot,1,0,5,2)
-# myrobot=move(myrobot,1,0,6,2)
-# myrobot=move(myrobot,3,0,0.5)
-# myrobot=move(myrobot,1,90,0.5)
-# myrobot=move(myrobot,1,-90,0.5)
-# myrobot=move(myrobot,3,0,0.5)
-# myrobot=move(myrobot,1,-90,0.5)
-# myrobot=move(myrobot,3,0,0.5)
-# print("done")
-# plt.show()
